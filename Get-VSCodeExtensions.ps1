@@ -1,4 +1,24 @@
-﻿$extensions = @(
+﻿<#
+    Get-VSCodeExtensions.ps1 
+    ------------------------
+
+    This script will download all the extensions listed in the array of hash tables called
+    $extenions from Microsoft's Visual Studio Code Marketplace. 
+
+    Hashtable settings. 
+    name => Local friendly name of the package, can be whatever you want
+
+    packagespec => This must be the raw link to the extensions package.json file.
+                    Usually hosted on GitHub but could be stored anywhere as long
+                    as the extension is uploaded to vscode marketplace. 
+                
+    version => Optional, will override the latest version listed in the package spec.
+                Useful if the publisher has a newer version or beta version in their
+                github branch (e.g. master) that you are pulling from. If the version
+                you list isn't in the marketplace you will see an error. 
+#>
+
+$extensions = @(
     @{
         "name" = "Ruby";
         "packagespec" = "https://raw.githubusercontent.com/rubyide/vscode-ruby/master/package.json"
