@@ -3,9 +3,12 @@
     ------------------------
 
     This script will download all the extensions listed in the array of hash tables called
-    $extenions from Microsoft's Visual Studio Code Marketplace. 
+    $extenions from Microsoft's Visual Studio Code Marketplace so that you can sideload/offline
+    install them. 
 
-    Hashtable settings. 
+    https://code.visualstudio.com/Docs/extensions/install-extension#_side-loading
+
+    Hashtable parameters. 
     name => Local friendly name of the package, can be whatever you want
 
     packagespec => This must be the raw link to the extensions package.json file.
@@ -14,8 +17,15 @@
                 
     version => Optional, will override the latest version listed in the package spec.
                 Useful if the publisher has a newer version or beta version in their
-                github branch (e.g. master) that you are pulling from. If the version
-                you list isn't in the marketplace you will see an error. 
+                github branch (e.g. master) that is not in the Marketplace yet. If the version
+                you list isn't in the marketplace you will see an error and it is skipped. 
+
+    Script stores downloaded extensions in a locally created directory called "vscode-ext" whereever this
+    script is executed from. 
+
+    If you get an error message about "ExecutionPolicy" needing powershell files to be "RemoteSigned" do not
+    change it to something unsecure system wide like "Unrestricted" as many websites tell you. Just read/understand
+    this script and run an 'Unblock-File Get-VSCodeExtensions.ps1' in Powershell to allow this file to run. 
 #>
 
 $extensions = @(
@@ -59,7 +69,7 @@ $extensions = @(
      @{
         "name" = "C#";
         "packagespec" = "https://raw.githubusercontent.com/OmniSharp/omnisharp-vscode/master/package.json"
-        "version" = "1.7.0" # master has 1.8.0-beta1 WTF!?
+        "version" = "1.7.0" #master has beta version
      }
 )
 
